@@ -5,7 +5,7 @@ dotenv.config();
 import { MongoClient } from 'mongodb';
 
 describe('Database Connection', () => {
-  test
+
   
   let client: MongoClient;
 
@@ -31,9 +31,10 @@ describe('Database Connection', () => {
   afterAll(async () => {
     await client.close();
   });
-
+  
   it('connects successfully', () => {
     
     expect(client).toBeDefined();
+  
   });
 });
