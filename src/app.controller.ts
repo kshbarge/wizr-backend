@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Res} from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -10,3 +10,13 @@ export class AppController {
     return this.appService.getHello();
   }
 }
+
+
+/*@Controller('chat')
+export class ChatController {
+  //constructor(private readonly appService: AppService) {}
+  @Get()
+  findAll(@Res() res: Response): string {
+    return res.send('<p>Heya world</p>');
+  }
+}*/
