@@ -1,0 +1,93 @@
+[
+    {
+      "username": "john_doe",
+      "password": "password123",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "DOB": { "$date": "1990-05-15T00:00:00.000Z" },
+      "avatar_img_url": "https://example.com/avatars/john.jpg",
+      "language": "English",
+      "timezone": "GMT-04:00",
+      "skills": ["JavaScript", "React", "Node.js"],
+      "learning": ["GraphQL", "TypeScript"],
+      "isOnline": false
+    },
+    {
+      "username": "jane_smith",
+      "password": "pass456",
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "DOB": { "$date": "1985-09-20T00:00:00.000Z" },
+      "avatar_img_url": "https://example.com/avatars/jane.jpg",
+      "language": "English",
+      "timezone": "GMT+01:00",
+      "skills": ["Python", "Django"],
+      "learning": ["Docker", "Kubernetes"],
+      "isOnline": false
+    },
+    {
+      "username": "alex_brown",
+      "password": "secure789",
+      "name": "Alex Brown",
+      "email": "alex.brown@example.com",
+      "DOB": { "$date": "1992-12-01T00:00:00.000Z" },
+      "avatar_img_url": "https://example.com/avatars/alex.jpg",
+      "language": "French",
+      "timezone": "GMT+01:00",
+      "skills": ["Java", "Spring Boot"],
+      "learning": ["Microservices", "AWS"],
+      "isOnline": false
+    },
+    {
+      "username": "maria_garcia",
+      "password": "mypassword",
+      "name": "Maria Garcia",
+      "email": "maria.garcia@example.com",
+      "DOB": { "$date": "1988-07-09T00:00:00.000Z" },
+      "avatar_img_url": "https://example.com/avatars/maria.jpg",
+      "language": "Spanish",
+      "timezone": "GMT-06:00",
+      "skills": ["PHP", "Laravel"],
+      "learning": ["Vue.js", "Firebase"],
+      "isOnline": false
+    },
+    {
+      "username": "li_chen",
+      "password": "password1234",
+      "name": "Li Chen",
+      "email": "li.chen@example.com",
+      "DOB": { "$date": "1995-03-10T00:00:00.000Z" },
+      "avatar_img_url": "https://example.com/avatars/li.jpg",
+      "language": "Mandarin",
+      "timezone": "GMT+08:00",
+      "skills": ["C++", "Embedded Systems"],
+      "learning": ["Rust", "Kubernetes"],
+      "isOnline": false
+    },
+    {
+      "username": "emma_watson",
+      "password": "harrypotter",
+      "name": "Emma Watson",
+      "email": "emma.watson@example.com",
+      "DOB": { "$date": "1991-04-15T00:00:00.000Z" },
+      "avatar_img_url": "https://example.com/avatars/emma.jpg",
+      "language": "English",
+      "timezone": "GMT-07:00",
+      "skills": ["HTML", "CSS", "JavaScript"],
+      "learning": ["React Native", "Redux"],
+      "isOnline": false
+    },
+    {
+      "username": "tomo_yamada",
+      "password": "tokyo123",
+      "name": "Tomo Yamada",
+      "email": "tomo.yamada@example.com",
+      "DOB": { "$date": "1987-11-11T00:00:00.000Z" },
+      "avatar_img_url": "https://example.com/avatars/tomo.jpg",
+      "language": "Japanese",
+      "timezone": "GMT+09:00",
+      "skills": ["Go", "Microservices"],
+      "learning": ["Kubernetes", "Docker"],
+      "isOnline": false
+    }
+]
