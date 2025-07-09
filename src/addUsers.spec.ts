@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
-import addUsers from './utils/addUsers';
 import * as dotenv from 'dotenv';
+import TestAddUsers from './utils/TestAddUsers';
 
 dotenv.config();
 
@@ -46,17 +46,17 @@ describe('addUsers Function', () => {
 
   afterAll(async () => {
     if (client) {
-        await database.collection('Users').deleteOne({ username: 'testuser123' });
-     await database.collection('Users').deleteOne({ username: testUser.username });
+        
+     await database.collection('Test').deleteOne({ username: testUser.username });
       await client.close();
     }
   });
 
   test('should insert a user successfully', async () => {
     
-    await addUsers(testUser);
+    await TestAddUsers(testUser);
    
-    const insertedUser = await database.collection('Users').findOne({ username: testUser.username });
+    const insertedUser = await database.collection('Test').findOne({ username: testUser.username });
     expect(insertedUser).not.toBeNull();
     expect(insertedUser?.email).toBe(testUser.email);
     expect(insertedUser?.name).toBe(testUser.name);
