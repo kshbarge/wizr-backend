@@ -12,11 +12,4 @@ export class AppController {
 }
 
 
-/*@Controller('chat')
-export class ChatController {
-  //constructor(private readonly appService: AppService) {}
-  @Get()
-  findAll(@Res() res: Response): string {
-    return res.send('<p>Heya world</p>');
-  }
-}*/
+
