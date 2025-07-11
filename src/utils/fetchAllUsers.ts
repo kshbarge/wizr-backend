@@ -1,0 +1,27 @@
+
+import { MongoClient } from 'mongodb';
+
+let client: MongoClient;
+async function fetchAllUsers() {
+    try {
+      const dbUrl = 'mongodb+srv://nc-Wizr:LZBlEA21sYchn3aA@wizr.ykawvuv.mongodb.net/'; 
+      if (!dbUrl) throw new Error('DATABASE_URL is not defined');
+  
+      client = new MongoClient(dbUrl);
+      await client.connect();
+      const database = client.db('WIZR'); 
+      
+  
+      const users = await database.collection('Users').find().toArray();
+      
+      await client.close();
+
+      return users;
+    } catch (error) {
+      if (client) await client.close();
+      throw error;
+    }
+}
+  
+
+export default fetchAllUsers
