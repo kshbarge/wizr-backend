@@ -3,9 +3,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
-import { MongooseModule } from '@nestjs/mongoose';
-import { UserModule } from './users/users.module';
 import { RedisService } from './redis/redis.service';
 
 
@@ -16,7 +13,7 @@ import { RedisService } from './redis/redis.service';
     
 
     MongooseModule.forRoot(`mongodb+srv://nc-Wizr:LZBlEA21sYchn3aA@wizr.ykawvuv.mongodb.net/`),  
-    UserModule,                                                                              
+    UsersModule,                                                                              
 
 
   ],
