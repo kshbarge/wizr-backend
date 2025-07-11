@@ -14,7 +14,6 @@ export class RedisService implements OnModuleInit {
     return this.client
       .sadd('onlineUsers', userId)
       .then((result) => {
-        console.log('User added to Redis:', result);
         return result;
       })
       .catch((err) => {
@@ -26,7 +25,6 @@ export class RedisService implements OnModuleInit {
     return this.client
       .srem('onlineUsers', userId)
       .then((result) => {
-        console.log('User removed from Redis:', result);
         return result;
       })
       .catch((err) => {
@@ -38,7 +36,6 @@ export class RedisService implements OnModuleInit {
     return this.client
       .smembers('onlineUsers')
       .then((users) => {
-        console.log('Online users:', users);
         return users;
       })
       .catch((err) => {
@@ -52,10 +49,8 @@ export class RedisService implements OnModuleInit {
       .then((users) => {
         const match = users.find((id) => id !== userId);
         if (match) {
-          console.log('Match found:', match);
           return match;
         } else {
-          console.log('No match found');
           return null;
         }
       })

@@ -1,17 +1,37 @@
-import { Controller, Patch, Param, Post, Delete, Get } from '@nestjs/common';
-import { UsersService } from './users.service';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Patch,
+  Delete,
+} from '@nestjs/common';
+import { UserService } from './user.service';
 import { RedisService } from '../redis/redis.service';
+import { User } from './user.schema';
 
 @Controller('users')
-export class UsersController {
+export class UserController {
   constructor(
-    private readonly usersService: UsersService,
+    private readonly userService: UserService,
     private readonly redisService: RedisService,
   ) {}
 
+  @Get()
+  async getAllUsers(): Promise<User[]> {
+    return this.userService.findAll();
+  }
+
+  @Post()
+  async createUser(@Body() newUser: User): Promise<User> {
+    return this.userService.create(newUser);
+  }
+
   @Patch(':id/online')
   updateOnlineStatus(@Param('id') id: string) {
-    return this.usersService.setUserOnline(id);
+    return this.userService.setUserOnline(id);
   }
 
   @Post(':id/online')
@@ -25,7 +45,7 @@ export class UsersController {
   }
 
   @Get('online')
-  getAllUsers() {
+  getAllOnlineUsers() {
     return this.redisService.getQueueUsers();
   }
 

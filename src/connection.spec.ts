@@ -5,7 +5,7 @@ dotenv.config();
 import { MongoClient } from 'mongodb';
 
 describe('Database Connection', () => {
-  test
+
   
   let client: MongoClient;
 
@@ -20,20 +20,24 @@ describe('Database Connection', () => {
     const collections = await db.listCollections().toArray();
     console.log('Collections in WIZR:', collections.map(data => data.name));
     
-    
+    //check user data
     const usersCollection = db.collection('Users');
     const users = await usersCollection.find().toArray();
+     //check skills data
+    const skillsCollection = db.collection('Skills');
+    const skills = await skillsCollection.find().toArray();
     
-    console.log('Documents in Users collection:');
-    console.log(users);
+    console.log('Documents in Users collection:', users);
+    console.log('Documents in Skills collection:',JSON.stringify(skills, null, 2));
   });
   
   afterAll(async () => {
     await client.close();
   });
-
+  
   it('connects successfully', () => {
     
     expect(client).toBeDefined();
+  
   });
 });
