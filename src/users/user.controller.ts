@@ -4,6 +4,8 @@ import { User } from './user.schema';
 
 import customHook from 'src/utils/customHook';
 import fetchAllUsers from 'src/utils/fetchAllUsers';
+import fetchAllSkills from 'src/utils/fetchAllSkills';
+
 
 @Controller('users')
 export class UserController {
@@ -13,6 +15,11 @@ export class UserController {
   @Get()
   async getAllUsers() {
     const result = await fetchAllUsers();
+    return result; 
+  }
+  @Get('skills')
+  async getAllSkills() {
+    const result = await fetchAllSkills();
     return result; 
   }
 
