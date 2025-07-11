@@ -6,8 +6,8 @@ import { AppService } from './app.service';
 
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './users/users.module';
-import { ChatModule } from './chat/chat.module'
 import { RedisService } from './redis/redis.service';
+
 
 
 
