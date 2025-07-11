@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './users/users.module';
-import { ChatModule } from './chat/chat.module'
+
 
 
 
