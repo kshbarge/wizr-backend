@@ -11,13 +11,19 @@ export class UserService {
     return this.userModel.find().exec();
   }
 
-
-
   async create(user: User): Promise<User> {
     const createdUser = new this.userModel(user);
     return createdUser.save();
   }
 
-
-  
+  setUserOnline(id: string): Promise<User> {
+    return this.userModel
+      .findByIdAndUpdate(id, { isOnline: true }, { new: true })
+      .then((updatedUser) => {
+        if (!updatedUser) {
+          throw new Error('User not found');
+        }
+        return updatedUser;
+      });
+  }
 }
