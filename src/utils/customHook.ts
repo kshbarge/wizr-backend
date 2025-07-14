@@ -33,11 +33,10 @@ async function customHook() {
     isOnline: false,
   };
 
-  const dbUrl = process.env.MONGODB_URI;
-  if (!dbUrl) throw new Error('DATABASE_URL is not defined');
+
 
   try {
-    client = new MongoClient(dbUrl);
+    client = new MongoClient(process.env.MONGODB_URI!);
     await client.connect();
     database = client.db('WIZR');
 
