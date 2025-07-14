@@ -6,7 +6,9 @@ import { AppService } from './app.service';
 import { RedisService } from './redis/redis.service';
 import { ConfigModule } from '@nestjs/config';
 
-const mongoUri = process.env.MONGODB_URI;
+
+const mongoUri = 'mongodb+srv://nc-Wizr:LZBlEA21sYchn3aA@wizr.ykawvuv.mongodb.net/'
+;
 
 if (!mongoUri) {
   throw new Error('MONGODB_URI environment variable is not set');
