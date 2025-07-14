@@ -35,7 +35,7 @@ describe('addUsers Function', () => {
 
   beforeAll(async () => {
    
-    const dbUrl = process.env.DATABASE_URL;
+    const dbUrl = process.env.MONGODB_URI;
     if (!dbUrl) throw new Error('DATABASE_URL is not defined');
 
    
