@@ -6,11 +6,16 @@ import { AppService } from './app.service';
 import { RedisService } from './redis/redis.service';
 import { ConfigModule } from '@nestjs/config';
 
+const mongoUri = process.env.MONGODB_URI;
+
+if (!mongoUri) {
+  throw new Error('MONGODB_URI environment variable is not set');
+}
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-   
-    MongooseModule.forRoot(process.env.MONGODB_URI!),
+    MongooseModule.forRoot(mongoUri),
     UsersModule
   ],
   controllers: [AppController],
