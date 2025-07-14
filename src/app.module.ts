@@ -4,18 +4,14 @@ import { UsersModule } from './users/users.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RedisService } from './redis/redis.service';
-
-
-
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    
-
-    MongooseModule.forRoot(`mongodb+srv://nc-Wizr:LZBlEA21sYchn3aA@wizr.ykawvuv.mongodb.net/`),  
-    UsersModule,                                                                              
-
-
+    ConfigModule.forRoot({ isGlobal: true }),
+   
+    MongooseModule.forRoot(process.env.MONGODB_URI!),
+    UsersModule
   ],
   controllers: [AppController],
   providers: [AppService, RedisService],

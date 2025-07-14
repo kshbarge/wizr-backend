@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 mongoose
-  .connect(process.env.DATABASE_URL)
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('Mongoose connected successfully');
   })
@@ -13,7 +13,7 @@ mongoose
     console.error('Error connecting mongoose:', err);
   });
 
-const client = new MongoClient(process.env.DATABASE_URL);
+const client = new MongoClient(process.env.MONGODB_URI);
 
 async function listCollections() {
   try {

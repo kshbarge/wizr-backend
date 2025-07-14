@@ -21,7 +21,7 @@ async function TestAddUsers(user: User) {
     try {
         await client.connect()
         const db: Db = client.db('WIZR')
-        const collection: Collection<User> = db.collection('Test')
+        const collection: Collection<User> = db.collection('Users')
         
         await collection.insertOne(user);
     console.log('User added successfully:', user.username, ' to test data');
