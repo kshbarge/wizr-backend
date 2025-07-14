@@ -10,11 +10,11 @@ describe('Database Connection', () => {
   let client: MongoClient;
 
   beforeAll(async () => {
-    if (!process.env.DATABASE_URL) {
+    if (!process.env.MONGODB_URI) {
       throw new Error('DATABASE_URL is not defined in env variables');
     }
     
-    client = new MongoClient(process.env.DATABASE_URL);
+    client = new MongoClient(process.env.MONGODB_URI);
     await client.connect();
     const db = client.db('WIZR');
     const collections = await db.listCollections().toArray();

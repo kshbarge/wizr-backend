@@ -4,18 +4,16 @@ import {
   Post,
   Body,
   Param,
-  Put,
   Patch,
   Delete,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { RedisService } from '../redis/redis.service';
 import { User } from './user.schema';
-
-
 import customHook from 'src/utils/customHook';
 import fetchAllUsers from 'src/utils/fetchAllUsers';
 import fetchAllSkills from 'src/utils/fetchAllSkills';
+
 
 
 
@@ -37,15 +35,20 @@ export class UserController {
     return result; 
   }
 
-  @Get('test')  
+  @Post('test')  
   async invokeCustomHook() {
     const result = await customHook();
     return result; 
   }
+   
+  @Post('update')
+  async updateUser(@Body() body: { email: string; updateData: Partial<User> }) {
+    await this.userService.updateUser(body.email, body.updateData);
+    return { message: 'User updated successfully' };
+  }
+  
 
-
-
-  @Post()
+  @Post('create')
   async createUser(@Body() newUser: User): Promise<User> {
     return this.userService.create(newUser);
   }
