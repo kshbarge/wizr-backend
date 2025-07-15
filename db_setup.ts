@@ -4,8 +4,14 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+const mongoUri = process.env.MONGODB_URI;
+
+if (!mongoUri) {
+  throw new Error('MONGODB_URI is not defined in .env');
+}
+
 mongoose
-  .connect(process.env.DATABASE_URL)
+  .connect(mongoUri)
   .then(() => {
     console.log('Mongoose connected successfully');
   })
@@ -13,7 +19,7 @@ mongoose
     console.error('Error connecting mongoose:', err);
   });
 
-const client = new MongoClient(process.env.DATABASE_URL);
+const client = new MongoClient(mongoUri);
 
 async function listCollections() {
   try {
@@ -31,4 +37,4 @@ async function listCollections() {
   }
 }
 
-listCollections();
+void listCollections();

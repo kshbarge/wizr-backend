@@ -33,21 +33,20 @@ async function customHook() {
     isOnline: false,
   };
 
-  const dbUrl = 'mongodb+srv://nc-Wizr:LZBlEA21sYchn3aA@wizr.ykawvuv.mongodb.net/';
-  if (!dbUrl) throw new Error('DATABASE_URL is not defined');
+
 
   try {
-    client = new MongoClient(dbUrl);
+    client = new MongoClient(process.env.MONGODB_URI!);
     await client.connect();
     database = client.db('WIZR');
 
     await TestAddUsers(testUser);
 
-    const docs = await database.collection('Test').find().toArray();
+    const docs = await database.collection('Users').find().toArray();
       console.log('Documents in Test collection:', docs)
       
       
-    await database.collection('Test').deleteOne({ username: testUser.username });
+    await database.collection('Users').deleteOne({ username: testUser.username });
 
   
     await client.close();
