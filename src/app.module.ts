@@ -5,11 +5,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RedisService } from './redis/redis.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { VideoModule } from './video/video.module';
 import { ChatModule } from './chat/chat.module';
+
+
+
 
 @Module({
   imports: [
-    ChatModule,
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
@@ -19,7 +22,9 @@ import { ChatModule } from './chat/chat.module';
       inject: [ConfigService],
     }),
 
-    UsersModule,
+    UsersModule, VideoModule, ChatModule                                                                              
+
+
   ],
   controllers: [AppController],
   providers: [AppService, RedisService],
