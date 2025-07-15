@@ -4,19 +4,19 @@ import { UsersModule } from './users/users.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RedisService } from './redis/redis.service';
-import { ConfigModule } from '@nestjs/config';
-
-const mongoUri =
-  'mongodb+srv://nc-Wizr:LZBlEA21sYchn3aA@wizr.ykawvuv.mongodb.net/';
-
-if (!mongoUri) {
-  throw new Error('MONGODB_URI environment variable is not set');
-}
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(mongoUri),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGODB_URI'),
+      }),
+      inject: [ConfigService],
+    }),
+
     UsersModule,
   ],
   controllers: [AppController],
