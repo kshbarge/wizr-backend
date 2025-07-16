@@ -12,7 +12,6 @@ export class RedisService implements OnModuleInit {
 
   onModuleInit() {
     this.client = new Redis();
-    console.log('Redis connected');
   }
 
   addUserToQueue(userId: string) {
@@ -58,24 +57,29 @@ export class RedisService implements OnModuleInit {
 
   findSkillMatch(userId: string) {
     return this.userModel.findById(userId).then((userA) => {
-      if (!userA) {
-        throw new Error('User not found');
+      if (!userA || typeof userA.learning !== 'string') {
+        throw new Error('User not found or invalid learning field');
       }
 
-      const userALearning = userA.learning || [];
+      const learning = userA.learning.trim().toLowerCase();
 
       return this.client.smembers('onlineUsers').then((onlineUsers) => {
         const otherUserIds = onlineUsers.filter((id) => id !== userId);
 
         return this.userModel
           .find({ _id: { $in: otherUserIds } })
+          .lean()
           .then((candidates) => {
             const match = candidates.find((userB) => {
-              const userBSkills = userB.skills || [];
+              if (!userB.teaching || typeof userB.teaching !== 'string') {
+                return false;
+              }
 
-              return userALearning.some((learning) =>
-                userBSkills.includes(learning),
-              );
+              const teachingSkills = userB.teaching
+                .split(',')
+                .map((s) => s.trim().toLowerCase());
+
+              return teachingSkills.includes(learning);
             });
 
             return match || null;
