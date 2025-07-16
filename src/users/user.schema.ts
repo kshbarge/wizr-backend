@@ -1,16 +1,12 @@
-
-
-
-  import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-@Schema({ collection: 'Users' }) 
+@Schema({ collection: 'Users' })
 export class User extends Document {
   static username(arg0: string, username: any, arg2: string) {
     throw new Error('Method not implemented.');
   }
-  @Prop()
-  
+
   @Prop({ required: true })
   username: string;
 
@@ -58,6 +54,5 @@ export interface User extends Document {
   learning?: string;
   isOnline?: boolean;
 }
-
 
 export const UserSchema = SchemaFactory.createForClass(User);

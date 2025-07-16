@@ -5,7 +5,7 @@ interface User {
   password: string;
   name: string;
   email: string;
-  DOB: Date; 
+  DOB: Date;
   avatar_img_url?: string;
   language?: string;
   timezone?: string;
@@ -15,21 +15,19 @@ interface User {
 }
 
 async function addUsers(user: User) {
-    const dbUrl = (process.env.MONGODB_URI!)
+  const dbUrl = process.env.MONGODB_URI!;
 
-    const client = new MongoClient(dbUrl)
-    try {
-        await client.connect()
-        const db: Db = client.db('WIZR')
-        const collection: Collection<User> = db.collection('Users')
-        
-        await collection.insertOne(user);
+  const client = new MongoClient(dbUrl);
+  try {
+    await client.connect();
+    const db: Db = client.db('WIZR');
+    const collection: Collection<User> = db.collection('Users');
+
+    await collection.insertOne(user);
     console.log('User added successfully:', user.username);
-    }
-    finally {
-        await client.close()
-    }
-    
+  } finally {
+    await client.close();
+  }
 }
 
-export default addUsers
+export default addUsers;
