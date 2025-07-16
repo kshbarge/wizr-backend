@@ -35,11 +35,11 @@ export class User extends Document {
   @Prop()
   timezone?: string;
 
-  @Prop([String])
-  skills?: string[];
+  @Prop()
+  teaching?: string;
 
-  @Prop([String])
-  learning?: string[];
+  @Prop()
+  learning?: string;
 
   @Prop({ default: false })
   isOnline?: boolean;
@@ -54,8 +54,8 @@ export interface User extends Document {
   avatar_img_url?: string;
   language?: string;
   timezone?: string;
-  skills?: string[];
-  learning?: string[];
+  teaching?: string;
+  learning?: string;
   isOnline?: boolean;
 }
 

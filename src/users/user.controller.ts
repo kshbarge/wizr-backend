@@ -40,7 +40,7 @@ export class UserController {
     return result;
   }
 
-  @Post('update')
+  @Patch('update')
   async updateUser(@Body() body: { email: string; updateData: Partial<User> }) {
     await this.userService.updateUser(body.email, body.updateData);
     return { message: 'User updated successfully' };
