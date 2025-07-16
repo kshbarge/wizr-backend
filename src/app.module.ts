@@ -5,14 +5,24 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { RedisService } from './redis/redis.service';
 import { MatchModule } from './match/match.module';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { VideoModule } from './video/video.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      `mongodb+srv://nc-Wizr:LZBlEA21sYchn3aA@wizr.ykawvuv.mongodb.net/`,
-    ),
+    ConfigModule.forRoot({ isGlobal: true }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGODB_URI'),
+      }),
+      inject: [ConfigService],
+    }),
     UsersModule,
     MatchModule,
+    VideoModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService, RedisService],

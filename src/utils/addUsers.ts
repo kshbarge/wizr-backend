@@ -15,7 +15,7 @@ interface User {
 }
 
 async function addUsers(user: User) {
-    const dbUrl = `${process.env.DATABASE_URL}`
+    const dbUrl = (process.env.MONGODB_URI!)
 
     const client = new MongoClient(dbUrl)
     try {

@@ -15,13 +15,13 @@ interface User {
 }
 
 async function TestAddUsers(user: User) {
-    const dbUrl = `mongodb+srv://nc-Wizr:LZBlEA21sYchn3aA@wizr.ykawvuv.mongodb.net/`
+    const dbUrl = (process.env.MONGODB_URI!)
 
     const client = new MongoClient(dbUrl)
     try {
         await client.connect()
         const db: Db = client.db('WIZR')
-        const collection: Collection<User> = db.collection('Test')
+        const collection: Collection<User> = db.collection('Users')
         
         await collection.insertOne(user);
     console.log('User added successfully:', user.username, ' to test data');

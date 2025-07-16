@@ -34,11 +34,9 @@ describe('addUsers Function', () => {
   };
 
   beforeAll(async () => {
-   
-    const dbUrl = process.env.DATABASE_URL;
+    const dbUrl = process.env.MONGODB_URI;
     if (!dbUrl) throw new Error('DATABASE_URL is not defined');
 
-   
     client = new MongoClient(dbUrl);
     await client.connect();
     database = client.db('WIZR');
@@ -46,17 +44,19 @@ describe('addUsers Function', () => {
 
   afterAll(async () => {
     if (client) {
-        
-     await database.collection('Test').deleteOne({ username: testUser.username });
+      await database
+        .collection('Test')
+        .deleteOne({ username: testUser.username });
       await client.close();
     }
   });
 
   test('should insert a user successfully', async () => {
-    
     await TestAddUsers(testUser);
-   
-    const insertedUser = await database.collection('Test').findOne({ username: testUser.username });
+
+    const insertedUser = await database
+      .collection('Test')
+      .findOne({ username: testUser.username });
     expect(insertedUser).not.toBeNull();
     expect(insertedUser?.email).toBe(testUser.email);
     expect(insertedUser?.name).toBe(testUser.name);

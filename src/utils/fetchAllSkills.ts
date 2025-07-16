@@ -4,7 +4,7 @@ import { MongoClient } from 'mongodb';
 let client: MongoClient;
 async function fetchAllSkills() {
     try {
-      const dbUrl = 'mongodb+srv://nc-Wizr:LZBlEA21sYchn3aA@wizr.ykawvuv.mongodb.net/'; 
+      const dbUrl = process.env.MONGODB_URI; 
       if (!dbUrl) throw new Error('DATABASE_URL is not defined');
   
       client = new MongoClient(dbUrl);

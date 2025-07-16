@@ -4,7 +4,6 @@ import {
   Post,
   Body,
   Param,
-  Put,
   Patch,
   Delete,
 } from '@nestjs/common';
@@ -28,6 +27,7 @@ export class UserController {
     const result = await fetchAllUsers();
     return result;
   }
+
   @Get('skills')
   async getAllSkills() {
     const result = await fetchAllSkills();
@@ -40,7 +40,13 @@ export class UserController {
     return result;
   }
 
-  @Post()
+  @Post('update')
+  async updateUser(@Body() body: { email: string; updateData: Partial<User> }) {
+    await this.userService.updateUser(body.email, body.updateData);
+    return { message: 'User updated successfully' };
+  }
+
+  @Post('create')
   async createUser(@Body() newUser: User): Promise<User> {
     return this.userService.create(newUser);
   }

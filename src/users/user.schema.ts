@@ -6,6 +6,11 @@ import { Document } from 'mongoose';
 
 @Schema({ collection: 'Users' }) 
 export class User extends Document {
+  static username(arg0: string, username: any, arg2: string) {
+    throw new Error('Method not implemented.');
+  }
+  @Prop()
+  
   @Prop({ required: true })
   username: string;
 
