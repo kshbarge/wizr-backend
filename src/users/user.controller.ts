@@ -12,12 +12,9 @@ import { UserService } from './user.service';
 import { RedisService } from '../redis/redis.service';
 import { User } from './user.schema';
 
-
 import customHook from 'src/utils/customHook';
 import fetchAllUsers from 'src/utils/fetchAllUsers';
 import fetchAllSkills from 'src/utils/fetchAllSkills';
-
-
 
 @Controller('users')
 export class UserController {
@@ -29,21 +26,19 @@ export class UserController {
   @Get()
   async getAllUsers() {
     const result = await fetchAllUsers();
-    return result; 
+    return result;
   }
   @Get('skills')
   async getAllSkills() {
     const result = await fetchAllSkills();
-    return result; 
+    return result;
   }
 
-  @Get('test')  
+  @Get('test')
   async invokeCustomHook() {
     const result = await customHook();
-    return result; 
+    return result;
   }
-
-
 
   @Post()
   async createUser(@Body() newUser: User): Promise<User> {
@@ -70,8 +65,8 @@ export class UserController {
     return this.redisService.getQueueUsers();
   }
 
-  @Post(':id/match')
-  findMatch(@Param('id') id: string) {
-    return this.redisService.findMatch(id);
+  @Get('skill-match/:id')
+  getSkillMatch(@Param('id') id: string) {
+    return this.redisService.findSkillMatch(id);
   }
 }

@@ -1,9 +1,14 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import Redis from 'ioredis';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { User } from '../users/user.schema';
 
 @Injectable()
 export class RedisService implements OnModuleInit {
   private client: Redis;
+
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   onModuleInit() {
     this.client = new Redis();
@@ -14,7 +19,11 @@ export class RedisService implements OnModuleInit {
     return this.client
       .sadd('onlineUsers', userId)
       .then((result) => {
-        return result;
+        return this.userModel
+          .findByIdAndUpdate(userId, { isOnline: true })
+          .then(() => {
+            return result;
+          });
       })
       .catch((err) => {
         console.error('Redis error:', err);
@@ -25,7 +34,11 @@ export class RedisService implements OnModuleInit {
     return this.client
       .srem('onlineUsers', userId)
       .then((result) => {
-        return result;
+        return this.userModel
+          .findByIdAndUpdate(userId, { isOnline: false })
+          .then(() => {
+            return result;
+          });
       })
       .catch((err) => {
         console.error('Redis error:', err);
@@ -43,19 +56,31 @@ export class RedisService implements OnModuleInit {
       });
   }
 
-  findMatch(userId: string) {
-    return this.client
-      .smembers('onlineUsers')
-      .then((users) => {
-        const match = users.find((id) => id !== userId);
-        if (match) {
-          return match;
-        } else {
-          return null;
-        }
-      })
-      .catch((err) => {
-        console.error('Redis error:', err);
+  findSkillMatch(userId: string) {
+    return this.userModel.findById(userId).then((userA) => {
+      if (!userA) {
+        throw new Error('User not found');
+      }
+
+      const userALearning = userA.learning || [];
+
+      return this.client.smembers('onlineUsers').then((onlineUsers) => {
+        const otherUserIds = onlineUsers.filter((id) => id !== userId);
+
+        return this.userModel
+          .find({ _id: { $in: otherUserIds } })
+          .then((candidates) => {
+            const match = candidates.find((userB) => {
+              const userBSkills = userB.skills || [];
+
+              return userALearning.some((learning) =>
+                userBSkills.includes(learning),
+              );
+            });
+
+            return match || null;
+          });
       });
+    });
   }
 }
