@@ -2,7 +2,7 @@ import { SubscribeMessage, MessageBody, WebSocketGateway, WebSocketServer, OnGat
 import SimplePeer from 'simple-peer'
 
 import { Socket, Server } from 'socket.io'
-@WebSocketGateway(9811, {cors: {origin: '*'}})
+@WebSocketGateway({cors: {origin: 'https://wizr-z1na.onrender.com/'}})
 export class VideoGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @WebSocketServer() server: Server;
 
@@ -24,6 +24,6 @@ export class VideoGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @SubscribeMessage('answerCall')
     handleAnswer(client: Socket, data){
         console.log(data)
-        this.server.to(data.to).emit('callAccepted', data.signal)
+        this.server.to(data.to).emit('callAccepted', data.signal) 
     }
 }

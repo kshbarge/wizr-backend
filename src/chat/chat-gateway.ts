@@ -8,7 +8,7 @@ import {
 } from '@nestjs/websockets';
 
 import { Socket, Server } from 'socket.io';
-@WebSocketGateway(9628, { cors: { origin: '*' } })
+@WebSocketGateway({ cors: { origin: 'https://wizr-z1na.onrender.com/session' } })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server: Server;
 
