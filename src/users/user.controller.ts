@@ -42,6 +42,7 @@ export class UserController {
 
   @Patch('update')
   async updateUser(@Body() body: { email: string; updateData: Partial<User> }) {
+    console.log('UpdateUser body:', body);
     await this.userService.updateUser(body.email, body.updateData);
     return { message: 'User updated successfully' };
   }
