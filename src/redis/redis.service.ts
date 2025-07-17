@@ -12,6 +12,14 @@ export class RedisService implements OnModuleInit {
 
   onModuleInit() {
     this.client = new Redis();
+
+    this.client.on('connect', () => {
+      console.log('[Redis] connected');
+    });
+
+    this.client.on('error', (err) => {
+      console.error('[Redis] error:', err);
+    });
   }
 
   addUserToQueue(userId: string) {
