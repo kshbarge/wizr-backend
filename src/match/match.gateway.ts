@@ -30,7 +30,7 @@ export class MatchGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     const { userId, skillToTeach, skillToLearn } = payload;
 
-    if (skillToTeach === 'Japanese' && skillToLearn === 'German') {
+    if (userId) {
       const matchData = {
         message: 'Match found!',
         partnerId: '456', // dummy id
